@@ -65,7 +65,7 @@
     "lottie-web": "^5.8.1",
     "mock.js": "^0.2.0",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
+    "sass": "^1.32.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "pizzip": "^3.0.6",
