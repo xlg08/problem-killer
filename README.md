@@ -41,6 +41,18 @@
   
   - 运行完成后将自动打开网站
 
+- 方法四：使用 Docker 打包并运行
+  
+  - **构建镜像**（在项目根目录执行）：
+    ```shell
+    docker build -t problem-killer .
+    ```
+  - **运行容器**：
+    ```shell
+    docker run -d -p 80:80 --name problem-killer problem-killer
+    ```
+  - 浏览器访问 [http://localhost](http://localhost) 即可。若需使用其他端口，将 `80:80` 改为 `宿主机端口:80`，例如 `8080:80`。
+
 ## 功能
 
 ## Features
