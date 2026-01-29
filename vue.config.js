@@ -23,6 +23,8 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  // 转译使用 ES2020+ 语法的依赖（如 xlsx-template 依赖的 image-size 使用 ??）
+  transpileDependencies: ['xlsx-template'],
   devServer: {
     port: port,
     open: true,
