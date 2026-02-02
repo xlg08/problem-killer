@@ -24,3 +24,5 @@ yarn.lock
 python-simple-http-server/__pycache__
 python-simple-http-server/build
 python-simple-http-server/http_server.spec
+
+*.tar
