@@ -23,8 +23,9 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  // 转译使用 ES2020+ 语法的依赖（如 xlsx-template 依赖的 image-size 使用 ??）
-  transpileDependencies: ['xlsx-template'],
+  // 转译使用 ES2020+ 语法的依赖（xlsx-template 及嵌套的 image-size 使用 ??，正则可匹配任意层 node_modules）
+  transpileDependencies: ['xlsx-template', /[\\/]image-size[\\/]/],
+  parallel: false, // 使用 transpileDependencies 正则时需关闭，避免 thread-loader 序列化问题
   devServer: {
     port: port,
     open: true,
@@ -56,6 +57,13 @@ module.exports = {
     }
   },
   chainWebpack(config) {
+    // 让 js 规则也转译 node_modules 中的 image-size（含 ?? 等 ES2020 语法）
+    config.module.rule('js').include.add(/node_modules[\\/]image-size[\\/]/)
+    // 默认 exclude 会排除整个 node_modules，需改为：排除 node_modules 但保留 image-size
+    config.module.rule('js').exclude.clear().add((filePath) => {
+      return filePath.includes('node_modules') && !filePath.includes('image-size')
+    })
+
     // const cdn = {
     // inject tinymce into index.html
     // why use this cdn, detail see https://github.com/serfend/tinymce-all-in-one
